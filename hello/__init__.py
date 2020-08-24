@@ -1,5 +1,6 @@
 from flask import Flask
 from markupsafe import escape
+from flask import request
 
 
 def create_app():
@@ -13,6 +14,12 @@ def create_app():
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+
+    
+    @app.route('/greeting')
+    def greeting():
+        name = request.args.get('name')
+        return "Howdy %s" % escape(name), 200
 
     @app.route('/user/<username>')
     def show_user_profile(username):
